@@ -1,0 +1,70 @@
+*{
+	background: var(--blue10);
+
+}
+
+body{
+	padding-block-start: 7rem;
+}
+.wrapper{
+
+	margin: auto;
+	inline-size: 18.75rem;
+	background: var(--white);
+}
+
+form{
+	background: var(--white);
+	border-radius: 1rem;
+}
+
+.title{
+	color: var(--gray30);
+	text-align: center;
+	margin: 0;
+	background: var(--white);
+	padding-block-start: 2rem;
+	border-radius: 1rem;
+}
+
+.credenciales{
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	background: var(--white);
+	padding: 2rem;
+}
+
+.textInfo{
+	block-size: 2.5rem;
+	border: none;
+	background: var(--gray10);
+	color: var(--gray30);
+	font-size: 1rem;
+	border-radius: .5rem;
+}
+
+.textInfo::placeholder{
+	text-align: center;
+	font-size: 1rem;
+}
+
+.btnLogin{
+	block-size: 2.5rem;
+	border: none;
+	color: var(--white);
+	font-size: 1rem;
+	border-radius: .5rem;
+	text-align: center;
+	text-decoration: none;
+	color: var(--white);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.wrapper{
+	border-radius: 1rem;
+
+}
