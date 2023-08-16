@@ -32,7 +32,7 @@ include ('../php/c.php');
 						$name = $row['nombre'];
 			?>
 							
-							<p id="<?php echo $nro_suministro?>" class="btnLogin" type="submit"><?php echo $name?></p>
+							<p  class="btnLogin" type="submit"><?php echo $name?></p>
 			<?php
 					}
 				}
@@ -43,31 +43,57 @@ include ('../php/c.php');
 		<a href="../php/cerrarsesion.php"><img src="../icons/icon-salida.png"  alt=""></a>
 		</div>
 	</header>
+
+	<!-- Cuerpo del aplicativo -->
 	<div class="wrapper">
 		<h1 class="title"><?php echo $tipoActividad ?></h1>
-		<form name="cod" id="cod" action="../php/detalle-suministro.php" method="POST">
-				<div class="credenciales">
-			<?php
-				include ('../php/c.php');
+		<!-- <form  action="" method="POST">			
+			<div class="search">
+				<img src="../icons/search.png"  alt="">
+				<input type="search" class="searchAction" name="search" >
+				<button type="submit" name="submit">Buscar</button>
+			</div>
+		</form> -->
+		<form method="post" action="">
+		<div class="search">
+			<img src="../icons/search.png"  alt="">
+			<input type="search" name="busqueda" class="searchAction" placeholder="Buscar">
+			<input class="buttonSearch" type="submit" name="submit" value="Buscar">
+		</div>
+		</form>
+		<?php
+		$busqueda = '';
+		if (isset($_POST['submit'])) {
+			$busqueda = $_POST['busqueda'];
+			if (empty($busqueda)) {
+				$busqueda = "";
+			}
+}
+    	?>
 
-				if ($conexion){
-				$consulta = "select * from suministro inner join usuario on usuario.dni = suministro.dni where usuario.user_login = '$userglobal' and suministro.actividad = '$tipoActividad'";
-				$resultado  = mysqli_query($conexion,$consulta);
-				if($resultado){
-					while($row = $resultado->fetch_array()){
-						
-						$nro_suministro = $row['nro_suministro'];
-						
-			?>
+		<form name="cod" id="cod" action="../php/detalle-suministro.php" method="POST">
+		<div class="credenciales">
+				<?php
+					include ('../php/c.php');
+
+					if ($conexion){
+					$consulta =	"SELECT * FROM suministro INNER JOIN usuario ON usuario.dni = suministro.dni WHERE usuario.user_login = 'kninahuanca' AND suministro.actividad = 'COMPATIBILIDAD' AND (LOWER(suministro.distrito) LIKE LOWER('%$busqueda%') OR LOWER(suministro.sector) LIKE LOWER('%$busqueda%') OR LOWER(suministro.manzana) LIKE LOWER('%$busqueda%'))";
+					$resultado  = mysqli_query($conexion,$consulta);
+					if($resultado){
+						while($row = $resultado->fetch_array()){
 							
-							<button id="<?php echo $nro_suministro?>" class="btnLogin" type="submit"><?php echo "Suministro ",$nro_suministro?></button>
-			<?php
+							$nro_suministro = $row['nro_suministro'];
+							
+				?>
+								
+								<button id="<?php echo $nro_suministro?>" class="btnLogin" type="submit"><?php echo "Suministro ",$nro_suministro?></button>
+				<?php
+						}
 					}
 				}
-			}
-			
-			?>
-				</div>
+				
+				?>
+			</div>
 				<style>
 					#codSuministro{
 						display:none;
@@ -75,7 +101,7 @@ include ('../php/c.php');
 				</style>
 				<input name="codSuministro" id="codSuministro" type="text" >
 
-			</form>
+		</form>
 			<script>
 				
 				const $botonsumi = document.getElementsByClassName("btnLogin");
